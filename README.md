@@ -1,5 +1,6 @@
 # Digital Stethoscope  
 A **digital stethoscope** that amplifies, filters, and digitally processes heart sounds for enhanced diagnostics and remote monitoring.  
+**Project Outline** 
 
 ##  Team Members  
 - **Ashley Ann Benoy** - EE23BTECH11204  
