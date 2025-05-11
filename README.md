@@ -11,7 +11,11 @@ The amplified signal is then sent to the ATMEGA328-P, which then converts the an
 - **Muthyala Nikhitha Sri** - EE23BTECH11213  
 ## References
 https://circuitdigest.com/microcontroller-projects/diy-wireless-digital-stethoscope
+
 https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/s2012/myw9_gdd9/myw9_gdd9/
+
 https://circuitdigest.com/fullimage?i=circuitdiagram_mic/Wireless-Stethoscope-Circuit.png
+
 https://www.youtube.com/watch?v=w6MbM_f_7Uo
+
 https://www.youtube.com/watch?v=QSXJG3opua8&t=3s
