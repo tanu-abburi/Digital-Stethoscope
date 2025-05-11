@@ -1,14 +1,13 @@
 # Digital Stethoscope  
 A **digital stethoscope** that amplifies, filters, and digitally processes heart sounds for enhanced diagnostics and remote monitoring.  
 ## Project Outline
-We intend on developing a digital stethoscope system which includes an acoustic sensor that is attached to the processing unit, which will catch the signal, amplify it using an amplifier circuit using op amp TL082.
+We intend on developing a digital stethoscope system which includes an acoustic sensor that is attached to the processing unit, which will catch the signal, amplify it using an amplifier circuit using an op amp TL082.
 The amplified signal is then sent to the ATMEGA328-P, which then converts the analog signal to a digital one ,which is then displayed as a waveform on the LCD TFT screen.  We intend to 3D printing an enclosure which will offer mechanical support and keep the enclosure compact.
 ## Working
 The custom acoustic sensor is positioned on a pulse point of the body.
 The sound is transmitted to an amplifier circuit via a condenser microphone. 
 The amplified signal is then sent to the A0 ADC pin of the  ATmega328P microcontroller, where it is processed and displayed on the LCD screen.
 The LCD screen provides several functionalities, including:
-![Screenshot 2025-04-01 205035](https://github.com/user-attachments/assets/310cc9ef-4899-44aa-a6ba-efcdcc17590b)
 
 • Saving the waveform.
 
@@ -19,8 +18,10 @@ The LCD screen provides several functionalities, including:
 A flash memory IC is used to store the waveforms for later retrieval and display.
 ## Simulation Results
 ## Schematic
-## PCB Layout
-## PCB  3D view
+## PCB Layout and 3D view
+![Screenshot 2025-04-01 205035](https://github.com/user-attachments/assets/310cc9ef-4899-44aa-a6ba-efcdcc17590b)
+![Screenshot 2025-04-01 205024](https://github.com/user-attachments/assets/aa3de4de-1c26-4c6c-9281-6d6657d3f451)
+
 ##  Team Members  
 - **Ashley Ann Benoy** - EE23BTECH11204  
 - **Avani Chouhan** - EE23BTECH11205  
