@@ -8,9 +8,13 @@ The custom acoustic sensor is positioned on a pulse point of the body.
 The sound is transmitted to an amplifier circuit via a condenser microphone. 
 The amplified signal is then sent to the A0 ADC pin of the  ATmega328P microcontroller, where it is processed and displayed on the LCD screen.
 The LCD screen provides several functionalities, including:
+
 • Saving the waveform.
+
 • Starting and stopping the recording.
+
 • Erasing stored memory.
+
 A flash memory IC is used to store the waveforms for later retrieval and display.
 ## Simulation Results
 ## Schematic
