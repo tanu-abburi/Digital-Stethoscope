@@ -18,9 +18,11 @@ The LCD screen provides several functionalities, including:
 A flash memory IC is used to store the waveforms for later retrieval and display.
 ## Simulation Results
 ## Schematic
+![Screenshot 2025-04-01 205124](https://github.com/user-attachments/assets/3de2b7ae-8619-4d17-8622-c52183fbfa94)
 ## PCB Layout and 3D view
 ![Screenshot 2025-04-01 205035](https://github.com/user-attachments/assets/310cc9ef-4899-44aa-a6ba-efcdcc17590b)
 ![Screenshot 2025-04-01 205024](https://github.com/user-attachments/assets/aa3de4de-1c26-4c6c-9281-6d6657d3f451)
+
 
 ##  Team Members  
 - **Ashley Ann Benoy** - EE23BTECH11204  
