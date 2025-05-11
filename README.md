@@ -4,9 +4,9 @@ A **digital stethoscope** that amplifies, filters, and digitally processes heart
 We intend on developing a digital stethoscope system which includes an acoustic sensor that is attached to the processing unit, which will catch the signal, amplify it using an amplifier circuit using op amp TL082.
 The amplified signal is then sent to the ATMEGA328-P, which then converts the analog signal to a digital one ,which is then displayed as a waveform on the LCD TFT screen.  We intend to 3D printing an enclosure which will offer mechanical support and keep the enclosure compact.
 ## Working
-The custom acoustic sensor is positioned on a pulse point of the body. The sound is transmitted to an
-amplifier circuit via a condenser microphone. The amplified signal is then sent to the A0 ADC pin of the
-ATmega328P microcontroller, where it is processed and displayed on the LCD screen.
+The custom acoustic sensor is positioned on a pulse point of the body.
+The sound is transmitted to an amplifier circuit via a condenser microphone. 
+The amplified signal is then sent to the A0 ADC pin of the  ATmega328P microcontroller, where it is processed and displayed on the LCD screen.
 The LCD screen provides several functionalities, including:
 • Saving the waveform.
 • Starting and stopping the recording.
