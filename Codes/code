@@ -1,0 +1,135 @@
+#include <Adafruit_GFX.h>
+#include <Adafruit_ILI9341.h>
+
+// TFT SPI pin definitions
+#define TFT_DC    9
+#define TFT_CS    10
+#define TFT_RST   8
+#define TFT_MOSI  11
+#define TFT_CLK   13
+#define TFT_MISO  12
+
+#define FLASH_CS  2  // PD2 is digital pin 2 on ATmega328P
+
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
+
+const int analogPin = A0;
+const int screenWidth = 320;
+const int screenHeight = 240;
+
+int prevY[screenWidth];
+int currentX = 0;
+
+#define SMOOTHING_FACTOR 8
+
+// Waveform vertical positioning
+const int plotHeight = 120;
+const int verticalOffset = 60;
+
+int beatCount = 0;
+unsigned long beatWindowStart = 0;
+int bpm = 0;
+
+void drawGrid() {
+  for (int x = 0; x < screenWidth; x += 20) {
+    tft.drawLine(x, 0, x, screenHeight - 1, ILI9341_DARKGREY);
+  }
+  for (int y = 0; y < screenHeight; y += 15) {
+    tft.drawLine(0, y, screenWidth - 1, y, ILI9341_DARKGREY);
+  }
+}
+
+void displayBPM(int bpm) {
+  tft.fillRect(0, 0, 80, 20, ILI9341_BLACK);  // Clear previous BPM display
+  tft.setCursor(0, 0);
+  tft.setTextColor(ILI9341_WHITE);
+  tft.setTextSize(2);
+  tft.print("BPM: ");
+  tft.print(bpm);
+}
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(FLASH_CS, OUTPUT);
+  digitalWrite(FLASH_CS, HIGH);
+
+  tft.begin();
+  tft.setRotation(1);
+  tft.fillScreen(ILI9341_BLACK);
+  drawGrid();
+
+  int centerY = verticalOffset + plotHeight / 2;
+  for (int i = 0; i < screenWidth; i++) {
+    prevY[i] = centerY;
+  }
+
+  analogReference(DEFAULT);
+  beatWindowStart = millis(); // Start BPM window
+  displayBPM(0);              // Initialize BPM to 0
+}
+
+void loop() {
+  int analogVal = analogRead(analogPin);
+  static int smoothVal = analogVal;
+  smoothVal = (smoothVal * (SMOOTHING_FACTOR - 1) + analogVal) / SMOOTHING_FACTOR;
+
+  // Track min and max for dynamic thresholding
+  static int signalMin = 1023;
+  static int signalMax = 0;
+  signalMin = min(signalMin, smoothVal);
+  signalMax = max(signalMax, smoothVal);
+
+  int dynamicThreshold = signalMin + 0.75 * (signalMax - signalMin);
+
+  static unsigned long lastResetTime = 0;
+  if (millis() - lastResetTime > 2000) {
+    signalMin = 1023;
+    signalMax = 0;
+    lastResetTime = millis();
+  }
+
+  int yNew = map(smoothVal, 0, 1023, verticalOffset + plotHeight, verticalOffset);
+  yNew = constrain(yNew, 0, screenHeight - 1);
+
+  // Heartbeat detection
+  static bool beatDetected = false;
+
+  if (!beatDetected && smoothVal > dynamicThreshold) {
+    beatDetected = true;
+    beatCount++;
+  } else if (beatDetected && smoothVal < dynamicThreshold - 20) {
+    beatDetected = false;
+  }
+
+  // BPM calculation every 5 seconds
+  unsigned long currentTime = millis();
+  if (currentTime - beatWindowStart >= 5000) {
+    bpm = beatCount * 12;  // 5s interval → multiply by 12
+    displayBPM(bpm);
+    beatCount = 0;
+    beatWindowStart = currentTime;
+  }
+
+  // Plotting
+  int xPrev = currentX;
+  int xNext = (currentX + 1) % screenWidth;
+  int yPrev = prevY[xNext];
+  int yPrev2 = prevY[(xNext - 1 + screenWidth) % screenWidth];
+  tft.drawLine(xNext - 1, yPrev2, xNext, yPrev, ILI9341_BLACK);
+
+  if (xNext % 20 == 0) {
+    tft.drawLine(xNext, 0, xNext, screenHeight - 1, ILI9341_DARKGREY);
+  }
+  if (yPrev % 15 == 0) {
+    tft.drawPixel(xNext, yPrev, ILI9341_DARKGREY);
+  }
+
+  tft.drawLine(currentX - 1, prevY[(currentX - 1 + screenWidth) % screenWidth], currentX, yNew, ILI9341_GREEN);
+  prevY[currentX] = yNew;
+
+  currentX++;
+  if (currentX >= screenWidth) currentX = 0;
+
+  delay(2);
+}
