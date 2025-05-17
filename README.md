@@ -23,7 +23,10 @@ The amplified signal is then sent to the A0 ADC pin of the  ATmega328P microcont
 - **Avani Chouhan** - EE23BTECH11205  
 - **Abburi Tanusha** - EE23BTECH11201  
 - **Manugunta Meghana Sai** - EE23BTECH11212  
-- **Muthyala Nikhitha Sri** - EE23BTECH11213  
+- **Muthyala Nikhitha Sri** - EE23BTECH11213
+
+## System
+
 ## References
 https://circuitdigest.com/microcontroller-projects/diy-wireless-digital-stethoscope
 
